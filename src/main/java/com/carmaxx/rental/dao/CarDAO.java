@@ -2,6 +2,7 @@ package com.carmaxx.rental.dao;
 
 import com.carmaxx.rental.model.Car;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface CarDAO {
@@ -12,4 +13,6 @@ public interface CarDAO {
         UUID id = UUID.randomUUID();
         return insertCar(id, car);
     }
+
+    List<Car> selectAllCars();
 }
