@@ -47,36 +47,32 @@ public class CarControllerUnitTests {
         carList.add(new Car(UUID.randomUUID(), "Dodge Viper"));
         carList.add(new Car(UUID.randomUUID(), "Chevrolet Corvette"));
     }
-
-    /*
-    @Test
-    public void testGetExistingCar() throws Exception {
-        //Optional<Car> carID = carList.get(0).getId();
-        UUID id = carList.get(0).getId();
-        endpoint = endpoint + id;
-        
-        Mockito.when(carController.getCar(id)).thenReturn(carList.get(0));
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(endpoint)).andReturn();
-        int expectedStatus = mvcResult.getResponse().getStatus();
-
-        assertThat(expectedStatus).isEqualTo(200);
-    }
-    */
     
-
     @Test
     public void testGetAllCars() throws Exception {
         Mockito.when(carController.getAllCars()).thenReturn(carList);
         MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
-                                                                    .andExpect(status()
-                                                                    .isOk())
-                                                                    .andReturn();
+                                                                .andExpect(status()
+                                                                .isOk())
+                                                            .andReturn();
 
         String receivedContent = mvcResult.getResponse().getContentAsString();
         String expectedContent = objectMapper.writeValueAsString(carList);
 
         assertThat(receivedContent).isEqualTo(expectedContent);
     }
+
+    @Test
+    public void testGetCar() throws Exception {
+        UUID existingCarID = carList.get(1).getId();
+        endpoint = endpoint + existingCarID;
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(endpoint))
+                                                                .andReturn();
+
+        int receivedStatus = mvcResult.getResponse().getStatus();
+        assertThat(receivedStatus).isEqualTo(200);
+    }
+    
 
     @Test
     public void testAddCar() throws Exception {
@@ -91,7 +87,19 @@ public class CarControllerUnitTests {
     }
 
     @Test
-    public void testDeleteExistingCar() throws Exception {
+    public void testUpdateCar() throws Exception {
+        Car updateCar = new Car(carList.get(3).getId(), "Plymouth Road Runner");
+        endpoint = endpoint + carList.get(3).getId();
+
+        Mockito.doNothing().when(carController).updateCar(updateCar.getId(), updateCar);
+        mockMvc.perform(MockMvcRequestBuilders.put(endpoint)
+                                              .contentType("application/json")
+                                              .content(objectMapper.writeValueAsString(updateCar)))
+                                            .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testDeleteCar() throws Exception {
         UUID uuID = carList.get(2).getId();
         String strID = uuID.toString();
 
