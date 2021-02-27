@@ -1,6 +1,8 @@
 package com.carmaxx.rental.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import com.carmaxx.rental.dao.CarDAO;
 import com.carmaxx.rental.model.Car;
@@ -25,5 +27,17 @@ public class CarService {
 
     public List<Car> getAllCars() {
         return carDAO.selectAllCars();
+    }
+
+    public Optional<Car> getCar(UUID id) {
+        return carDAO.selectCar(id);
+    }
+
+    public int deleteCar(UUID id) {
+        return carDAO.deleteCar(id);
+    }
+
+    public int updateCar(UUID id, Car newcar) {
+        return carDAO.updateCar(id, newcar);
     }
 }
