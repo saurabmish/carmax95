@@ -68,9 +68,13 @@ Counterfeit used-car retailer.
 
 ## Execution
 
-At this stage, API requests and responses are stored in-memory. So `POST` is done before `GET`. 
++ Start Spring Boot application
 
-`./src/test/java/com/carmaxx/rental/endpoints.sh`
+  `mvn spring-boot:run`
+
++ At this stage, API requests and responses are stored in-memory. So `POST` is done before `GET`. 
+
+  `./src/test/java/com/carmaxx/rental/endpoints.sh`
 
 
 
