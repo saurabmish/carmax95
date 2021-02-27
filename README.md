@@ -1,4 +1,4 @@
-# carmaxx
+# Carmax95
 
 Counterfeit used-car retailer.
 
@@ -42,7 +42,7 @@ Counterfeit used-car retailer.
 + To keep `$HOME` directory clean using [XDG base directory specifications][2], set the below in shell configuration:
 
   ```
-  alias mvn="mvn -gs "$XDG_CONFIG_HOME"/maven/settings.xml"
+  alias mvn="mvn -gs $XDG_CONFIG_HOME/maven/settings.xml"
   export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
   ```
 
@@ -68,11 +68,25 @@ Counterfeit used-car retailer.
 
 ## Execution
 
++ Verify Maven build environment
+
+  `mvn clean verify`
+
++ Install project dependencies
+
+  `mvn clean install`
+
++ Run tests
+
+  `mvn test`
+
 + Start Spring Boot application
 
   `mvn spring-boot:run`
 
-+ At this stage, API requests and responses are stored in-memory. So `POST` is done before `GET`. 
++ In a new tab execute: 
+ 
+  (**NOTE**: At this stage, API requests and responses are stored in-memory)
 
   `./src/test/java/com/carmaxx/rental/endpoints.sh`
 
