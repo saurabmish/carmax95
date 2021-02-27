@@ -1,0 +1,37 @@
+arch: amd64
+
+language: java
+
+jdk: oraclejdk15
+
+cache:
+  directories:
+  - $HOME/.m2
+
+jobs:
+  include:
+    - name: "Xenial Linux"
+      os: linux
+      dist: xenial
+
+    - name: "macOS 10.15"
+      os: osx
+      osx_image: xcode11.6
+      language: shell
+
+script:
+  - java --version
+  - ./mvnw clean verify
+  - ./mvnw clean install
+  - ./mvnw test
+  - awk -F, '{ instructions += $4 + $5; covered += $5 } END { print covered, "/", instructions, " instructions covered"; print 100*covered/instructions, "% covered" }' target/site/jacoco/jacoco.csv
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    recipients:
+      - "saurab.mish@gmail.com"
+    on_success: never
+    on_failure: always
