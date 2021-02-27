@@ -2,6 +2,7 @@ package com.carmaxx.rental.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.carmaxx.rental.model.Car;
@@ -22,5 +23,36 @@ public class CarDataService implements CarDAO {
     @Override
     public List<Car> selectAllCars() {
         return DB;
+    }
+
+    @Override
+    public Optional<Car> selectCar(UUID id) {
+        return DB.stream()
+                .filter(car -> car.getId().equals(id))
+                .findFirst();
+    }
+
+    @Override
+    public int deleteCar(UUID id) {
+        Optional<Car> carMaybe = selectCar(id);
+        if (!carMaybe.isEmpty()) {
+            DB.remove(carMaybe.get());
+            return 1;
+        }
+        return 0;
+    }
+
+    @Override
+    public int updateCar(UUID id, Car newCar) {
+        return selectCar(id)
+                .map(car -> {
+                    int carIndex = DB.indexOf(car);
+                    if (carIndex >= 0) {
+                        DB.set(carIndex, new Car(id, newCar.getName()));
+                        return 1;
+                    }
+                    return 0;
+                })
+                .orElse(0); 
     }
 }
