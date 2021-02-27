@@ -14,11 +14,6 @@ jobs:
       os: linux
       dist: xenial
 
-    - name: "macOS 10.15"
-      os: osx
-      osx_image: xcode11.6
-      language: shell
-
 script:
   - java --version
   - ./mvnw clean verify
