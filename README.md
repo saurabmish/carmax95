@@ -2,7 +2,32 @@
 
 # Carmax95
 
-Car rental API based on Spring microservices
+Elite car retailer
+
+## Features
+
+  + Retrieve specific car
+    
+  + Retrieve all cars
+
+  + Add new car 
+    
+  + Modify existing car
+    
+  + Delete existing car
+
+## Data Type
+
+
+```
+{
+    ID:              128-bit universally unique identifier
+    Available:       Y or N
+    Name:            brand name of car
+    Manufacturer:    car brand manufacturer
+    Owned Times:     number of times car has been owned
+}
+```
 
 ## Setup
 
