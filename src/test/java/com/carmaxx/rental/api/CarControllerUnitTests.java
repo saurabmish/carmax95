@@ -1,12 +1,7 @@
 package com.carmaxx.rental.api;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import com.carmaxx.rental.model.Car;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,6 +11,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
@@ -42,10 +41,10 @@ public class CarControllerUnitTests {
         endpoint = "/api/v1/car/";
         carList = new ArrayList<>();
 
-        carList.add(new Car(UUID.randomUUID(), "Toyota Supra"));
-        carList.add(new Car(UUID.randomUUID(), "Mitsubishi Lancer Evolution VIII"));
-        carList.add(new Car(UUID.randomUUID(), "Dodge Viper"));
-        carList.add(new Car(UUID.randomUUID(), "Chevrolet Corvette"));
+        carList.add(new Car(UUID.randomUUID(), 'Y', "Supra", "Toyota", 0));
+        carList.add(new Car(UUID.randomUUID(), 'Y', "Lancer Evolution X", "Mitsubishi", 2));
+        carList.add(new Car(UUID.randomUUID(), 'Y', "SRT Viper", "Dodge", 0));
+        carList.add(new Car(UUID.randomUUID(), 'Y', "Corvette ZR1", "Chevrolet", 1));
     }
     
     @Test
@@ -72,11 +71,10 @@ public class CarControllerUnitTests {
         int receivedStatus = mvcResult.getResponse().getStatus();
         assertThat(receivedStatus).isEqualTo(200);
     }
-    
 
     @Test
     public void testAddCar() throws Exception {
-        Car newCar = new Car(UUID.randomUUID(), "Chevrolet Cobalt SS");
+        Car newCar = new Car(UUID.randomUUID(), 'N', "Cobalt SS", "Chevrolet", 3);
 
         Mockito.doNothing().when(carController).addCar(newCar);
 
@@ -88,7 +86,7 @@ public class CarControllerUnitTests {
 
     @Test
     public void testUpdateCar() throws Exception {
-        Car updateCar = new Car(carList.get(3).getId(), "Plymouth Road Runner");
+        Car updateCar = new Car(carList.get(3).getId(), 'N', "Road Runner", "Plymouth", 2);
         endpoint = endpoint + carList.get(3).getId();
 
         Mockito.doNothing().when(carController).updateCar(updateCar.getId(), updateCar);
