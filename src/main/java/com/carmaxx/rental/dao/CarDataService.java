@@ -1,13 +1,12 @@
 package com.carmaxx.rental.dao;
 
+import com.carmaxx.rental.model.Car;
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import com.carmaxx.rental.model.Car;
-
-import org.springframework.stereotype.Repository;
 
 @Repository("in-memory data")
 public class CarDataService implements CarDAO {
@@ -16,7 +15,7 @@ public class CarDataService implements CarDAO {
 
     @Override
     public int insertCar(UUID id, Car car) {
-        DB.add(new Car(id, car.getName()));
+        DB.add(new Car(id, car.getAvailable(), car.getName(), car.getManufacturer(), car.getNumPreviousOwners()));
         return 1;
     }
 
@@ -48,7 +47,8 @@ public class CarDataService implements CarDAO {
                 .map(car -> {
                     int carIndex = DB.indexOf(car);
                     if (carIndex >= 0) {
-                        DB.set(carIndex, new Car(id, newCar.getName()));
+                        //DB.set(carIndex, new Car(id, newCar.getName()));
+                        DB.set(carIndex, new Car(id, newCar.getAvailable(), newCar.getName(), newCar.getManufacturer(), newCar.getNumPreviousOwners()));
                         return 1;
                     }
                     return 0;
