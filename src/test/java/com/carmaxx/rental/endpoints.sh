@@ -1,10 +1,15 @@
-echo "INITIATING CARS ...\n"
+echo "\n#######################"
+echo "Initiating car list ..."
+echo "#######################\n"
 
 curl --verbose --include \
   --header 'Content-Type: application/json' 'Accept: application/json' \
   --data '
       {
-          "name": "Lexus IS 350"
+          "available": "Y",
+          "name": "IS 350 F",
+          "manufacturer": "Lexus",
+          "owned times": 0
       }' \
   http://127.0.0.1:8080/api/v1/car
 
@@ -12,7 +17,10 @@ curl --verbose --include \
   --header 'Content-Type: application/json' 'Accept: application/json' \
   --data '
       {
-          "name": "BMW M3"
+          "available": "N",
+          "name": "M3 GTR",
+          "manufacturer": "BMW",
+          "owned times": 0
       }' \
   http://127.0.0.1:8080/api/v1/car
 
@@ -28,11 +36,18 @@ echo "List of all cars: "
 curl http://127.0.0.1:8080/api/v1/car | jq
 
 
+echo "\n##########################"
+echo "Adding car in the list ..."
+echo "##########################\n"
+
 curl --verbose --include \
   --header 'Content-Type: application/json' 'Accept: application/json' \
   --data '
       {
-          "name": "Mercedez Benz AMG GT"
+          "available": "Y",
+          "name": "AMG GT",
+          "manufacturer": "Mercedes Benz",
+          "owned times": 0
       }' \
   http://127.0.0.1:8080/api/v1/car
 
@@ -40,7 +55,7 @@ if [ $? -ne 0 ]
 then
     echo "Failed to add another car ..."
 else
-    echo "\n\nAdded another car! \n"
+    echo "\n\nSuccessfully added another car! \n"
 fi
 
 
@@ -66,7 +81,10 @@ curl --request PUT \
   --header 'Content-Type: application/json' 'Accept: application/json' \
   --data '
       {
-          "name": "Bugatti Chiron"
+          "available": "Y",
+          "name": "Chiron GT",
+          "manufacturer": "Bugatti",
+          "owned times": 0
       }' \
   http://127.0.0.1:8080/api/v1/car/$uuid1
 
@@ -82,7 +100,7 @@ echo "\nNew list of all cars: \n\n"
 curl http://127.0.0.1:8080/api/v1/car | jq
 
 
-echo "\n##################################"
+echo "\n###################################"
 echo "Deleting second car in the list ..."
 echo "###################################"
 
