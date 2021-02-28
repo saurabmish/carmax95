@@ -13,5 +13,7 @@ target/
 .springBeans
 .sts4-cache
 
-### VS Code ###
+### IDE ###
 .vscode/
+.idea/
+*.iml
