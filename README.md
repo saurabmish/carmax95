@@ -2,8 +2,7 @@
 
 # Carmax95
 
-Counterfeit used-car retailer.
-
+Car rental API based on Spring microservices
 
 ## Setup
 
