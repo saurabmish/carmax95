@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,7 +58,7 @@ public class CarControllerUnitTests {
         String receivedContent = mvcResult.getResponse().getContentAsString();
         String expectedContent = objectMapper.writeValueAsString(carList);
 
-        assertThat(receivedContent).isEqualTo(expectedContent);
+        assertEquals(receivedContent, expectedContent);
     }
 
     @Test
@@ -69,7 +69,7 @@ public class CarControllerUnitTests {
                                                                 .andReturn();
 
         int receivedStatus = mvcResult.getResponse().getStatus();
-        assertThat(receivedStatus).isEqualTo(200);
+        assertEquals(receivedStatus, 200);
     }
 
     @Test
