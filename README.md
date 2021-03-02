@@ -1,4 +1,4 @@
-<img src="https://travis-ci.com/saurabmish/carmax95.svg?branch=master" />
+[![Build Status](https://travis-ci.com/saurabmish/carmax95.svg?branch=master)](https://travis-ci.com/saurabmish/carmax95)
 
 # Carmax95
 
