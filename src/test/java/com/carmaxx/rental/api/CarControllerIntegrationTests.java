@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -75,5 +77,23 @@ public class CarControllerIntegrationTests {
         // then
         assertThat(carResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
-    
+
+    @Test
+    public void testUpdateExistingCar() throws Exception {
+        UUID existingCarId = carList.get(1).getId();
+        Car updateCar = new Car(existingCarId, 'Y', "Huracan", "Lamborghini", 0);
+
+        HttpEntity<Car> requestEntity = new HttpEntity<Car>(updateCar);
+        ResponseEntity<Car> carResponse = restTemplate.exchange("/api/v1/car/" + existingCarId, HttpMethod.PUT, requestEntity, Car.class);
+
+        assertThat(carResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void testDeleteExistingCar() throws Exception {
+        UUID existingCarId = carList.get(1).getId();
+        ResponseEntity<Car> carResponse = restTemplate.exchange("/api/v1/car/" + existingCarId, HttpMethod.DELETE, null, Car.class);
+
+        assertThat(carResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 }
